@@ -26,15 +26,16 @@ for i in range(26):
     letters.append([x,y,chr(A+i),True])
 
 # Fonts
-font=pygame.font.SysFont("comicsans",45)
-WORD=pygame.font.SysFont("comicsans",40)
-TITLE=pygame.font.SysFont("comicsans",70)
+font=pygame.font.SysFont("Comic Sans MS",45)
+WORD=pygame.font.SysFont("Comic Sans MS",40)
+TITLE=pygame.font.SysFont("Comic Sans MS",70)
 
 
 # Time to load images so we can draw a hangman
 images=[]
 for i in range(0,7):
-    image=pygame.image.load("man"+str(i+1)+".png")
+    image=pygame.image.load("assets/man"+str(i+1)+".png")
+    image=pygame.transform.scale(image, (250, 250))
     images.append(image)
 
 print(images)
@@ -51,8 +52,8 @@ def draw():
 
     # TITLE for the game
 
-    title=TITLE.render("HangMan",1,(0,0,0,0))
-    win.blit(title,(WIDTH/1.9 -title.get_width()/2, 10)) # Title in center and then y axis= 24
+    title=TITLE.render("HangMan",1,(0,0,0))
+    win.blit(title,(WIDTH/1.8 -title.get_width()/2, 10))
 
     # draw word on the screen
     disp_word=""
