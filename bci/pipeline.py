@@ -1,27 +1,11 @@
-# --------------------------------------------------------------
-# Example file s1e2_hello_world.py
-# For details and usage, see g.Pype Training Season 1, Episode 2
-# --------------------------------------------------------------
+from pylsl import StreamInlet, resolve_streams
+import numpy as np
 
-import gpype as gp
+print("Looking for EEG stream...")
+streams = resolve_streams(wait_time=5.0)
+inlet = StreamInlet(streams[0])
+print("Connected! Reading data...")
 
-if __name__ == "__main__":
-
-    # Create main app and pipeline
-    app = gp.MainApp()
-    p = gp.Pipeline()
-
-    # Create signal source and scope
-    source = gp.Generator(signal_amplitude=25)
-    scope = gp.TimeSeriesScope()
-
-    # Connect nodes
-    p.connect(source, scope)
-
-    # Add widget to main app
-    app.add_widget(scope)
-
-    # Start pipeline and run application
-    p.start()
-    app.run()  # blocking until window is closed
-    p.stop()
+while True:
+    sample, timestamp = inlet.pull_sample()
+    print(f"{timestamp:.2f} | {np.round(sample[:8], 2)}")
